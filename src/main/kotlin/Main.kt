@@ -1,5 +1,13 @@
 package org.example
 
+import org.example.shop.ShopImpl
+
 fun main() {
-    println("Hello World!")
+    var shop = ShopImpl()
+    shop.replenishmentWarehouse()
+
+
+
+
 }
+
