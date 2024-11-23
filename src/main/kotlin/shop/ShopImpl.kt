@@ -18,27 +18,29 @@ class ShopImpl(): Shop {
             if (!listPurchasedPhones.contains(sity)) {
                 listPurchasedPhones.set(
                     sity,
-                    Phone(
-                        listPhones.get(sity)!!.model,
-                        listPhones.get(sity)!!.price,
-                        1,
-                        listPhones.get(sity)!!.sity,
-                        listPhones.get(sity)!!.renovated
-                    )
+                    listPhones.get(sity)!!.copy(quality = 1)
                 )
+                println(listPurchasedPhones.get(sity)?.sity)
             } else {
-                listPurchasedPhones.get(sity)?.quality = listPurchasedPhones.get(sity)?.quality!! + 1
+                val purchasedPhone = listPurchasedPhones[sity]
+                if (purchasedPhone != null) {
+                    purchasedPhone.quality += 1
+                }
+
             }
         }
     }
 
 
     override fun getPurchasedPhones() {
+        for ((sity, phone) in listPurchasedPhones) {
+            println("город: $sity | модель: $phone")
+        }
         val statistics = mutableMapOf<PhoneModel, MutableMap<Sitys, Int>>()
 
-        for (phone in listPurchasedPhones.values) {
+        for ((city, phone) in listPurchasedPhones) {
             statistics.getOrPut(phone.model) { mutableMapOf() }
-                .merge(phone.sity, 1, Int::plus)
+                .merge(city, phone.quality, Int::plus)
         }
 
         for ((model, cityStats) in statistics) {
