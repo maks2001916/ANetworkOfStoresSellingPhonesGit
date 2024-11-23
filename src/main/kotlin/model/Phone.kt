@@ -7,6 +7,7 @@ data class Phone(
     var model: PhoneModel,
     var price: String,
     var quality: Int,
-    var sity: Sitys
+    var sity: Sitys,
+    var renovated: Boolean
 ) {
 }

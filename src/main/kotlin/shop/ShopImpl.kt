@@ -21,7 +21,8 @@ class ShopImpl(): Shop {
                     listPhones.get(sity)!!.model,
                     listPhones.get(sity)!!.price,
                     1,
-                    listPhones.get(sity)!!.sity
+                    listPhones.get(sity)!!.sity,
+                    listPhones.get(sity)!!.renovated
                 )
             )
         }
@@ -45,22 +46,22 @@ class ShopImpl(): Shop {
     }
 
     fun replenishmentWarehouse() {
-        listPhones.set(Sitys.MOSKOV, Phone(PhoneModel.POCO, "20_000", 50, Sitys.MOSKOV))
-        listPhones.set(Sitys.MOSKOV, Phone(PhoneModel.REDMI, "20_000", 50, Sitys.MOSKOV))
-        listPhones.set(Sitys.MOSKOV, Phone(PhoneModel.HUAWEI, "40_000", 50, Sitys.MOSKOV))
-        listPhones.set(Sitys.MOSKOV, Phone(PhoneModel.IPHONE, "60_000", 50, Sitys.MOSKOV))
-        listPhones.set(Sitys.MOSKOV, Phone(PhoneModel.SAMSUNG, "60_000", 50, Sitys.MOSKOV))
+        listPhones.set(Sitys.MOSKOV, Phone(PhoneModel.POCO, "20_000", 50, Sitys.MOSKOV, false))
+        listPhones.set(Sitys.MOSKOV, Phone(PhoneModel.REDMI, "20_000", 50, Sitys.MOSKOV, false))
+        listPhones.set(Sitys.MOSKOV, Phone(PhoneModel.HUAWEI, "40_000", 50, Sitys.MOSKOV, false))
+        listPhones.set(Sitys.MOSKOV, Phone(PhoneModel.IPHONE, "60_000", 50, Sitys.MOSKOV, false))
+        listPhones.set(Sitys.MOSKOV, Phone(PhoneModel.SAMSUNG, "60_000", 50, Sitys.MOSKOV, false))
 
-        listPhones.set(Sitys.ROSTOV_NA_DONU, Phone(PhoneModel.POCO, "23_000", 50, Sitys.ROSTOV_NA_DONU))
-        listPhones.set(Sitys.ROSTOV_NA_DONU, Phone(PhoneModel.REDMI, "23_000", 50, Sitys.ROSTOV_NA_DONU))
-        listPhones.set(Sitys.ROSTOV_NA_DONU, Phone(PhoneModel.HUAWEI, "45_000", 50, Sitys.ROSTOV_NA_DONU))
-        listPhones.set(Sitys.ROSTOV_NA_DONU, Phone(PhoneModel.IPHONE, "63_000", 50, Sitys.ROSTOV_NA_DONU))
-        listPhones.set(Sitys.ROSTOV_NA_DONU, Phone(PhoneModel.SAMSUNG, "63_000", 50, Sitys.ROSTOV_NA_DONU))
+        listPhones.set(Sitys.ROSTOV_NA_DONU, Phone(PhoneModel.POCO, "23_000", 50, Sitys.ROSTOV_NA_DONU, false))
+        listPhones.set(Sitys.ROSTOV_NA_DONU, Phone(PhoneModel.REDMI, "23_000", 50, Sitys.ROSTOV_NA_DONU, false))
+        listPhones.set(Sitys.ROSTOV_NA_DONU, Phone(PhoneModel.HUAWEI, "45_000", 50, Sitys.ROSTOV_NA_DONU, false))
+        listPhones.set(Sitys.ROSTOV_NA_DONU, Phone(PhoneModel.IPHONE, "63_000", 50, Sitys.ROSTOV_NA_DONU, false))
+        listPhones.set(Sitys.ROSTOV_NA_DONU, Phone(PhoneModel.SAMSUNG, "63_000", 50, Sitys.ROSTOV_NA_DONU, false))
 
-        listPhones.set(Sitys.SANKT_PITERBURG, Phone(PhoneModel.POCO, "18_000", 50, Sitys.SANKT_PITERBURG))
-        listPhones.set(Sitys.SANKT_PITERBURG, Phone(PhoneModel.REDMI, "18_000", 50, Sitys.SANKT_PITERBURG))
-        listPhones.set(Sitys.SANKT_PITERBURG, Phone(PhoneModel.HUAWEI, "36_000", 50, Sitys.SANKT_PITERBURG))
-        listPhones.set(Sitys.SANKT_PITERBURG, Phone(PhoneModel.IPHONE, "58_000", 50, Sitys.SANKT_PITERBURG))
-        listPhones.set(Sitys.SANKT_PITERBURG, Phone(PhoneModel.SAMSUNG, "58_000", 50, Sitys.SANKT_PITERBURG))
+        listPhones.set(Sitys.SANKT_PITERBURG, Phone(PhoneModel.POCO, "18_000", 50, Sitys.SANKT_PITERBURG, false))
+        listPhones.set(Sitys.SANKT_PITERBURG, Phone(PhoneModel.REDMI, "18_000", 50, Sitys.SANKT_PITERBURG, false))
+        listPhones.set(Sitys.SANKT_PITERBURG, Phone(PhoneModel.HUAWEI, "36_000", 50, Sitys.SANKT_PITERBURG, false))
+        listPhones.set(Sitys.SANKT_PITERBURG, Phone(PhoneModel.IPHONE, "58_000", 50, Sitys.SANKT_PITERBURG, false))
+        listPhones.set(Sitys.SANKT_PITERBURG, Phone(PhoneModel.SAMSUNG, "58_000", 50, Sitys.SANKT_PITERBURG, false))
     }
 }
