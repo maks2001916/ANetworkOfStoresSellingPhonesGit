@@ -5,8 +5,8 @@ import org.example.enums.PhoneModel
 import org.example.enums.Sitys
 
 class ShopImpl(): Shop {
-    override lateinit var listPurchasedPhones: MutableMap<Sitys, Phone>
-    override lateinit var listPhones: MutableMap<Sitys, Phone>
+    override var listPurchasedPhones: MutableMap<Sitys, Phone> = mutableMapOf()
+    override var listPhones: MutableMap<Sitys, Phone> = mutableMapOf()
 
     override fun buyingPhone(model: PhoneModel, sity: Sitys) {
         if (listPhones.get(sity)?.model == model &&
@@ -15,16 +15,20 @@ class ShopImpl(): Shop {
             listPhones.get(sity)?.quality = listPhones.get(sity)?.quality!! - 1
 
             //пополняем список проданных телефонов
-            listPurchasedPhones.set(
-                sity,
-                Phone(
-                    listPhones.get(sity)!!.model,
-                    listPhones.get(sity)!!.price,
-                    1,
-                    listPhones.get(sity)!!.sity,
-                    listPhones.get(sity)!!.renovated
+            if (!listPurchasedPhones.contains(sity)) {
+                listPurchasedPhones.set(
+                    sity,
+                    Phone(
+                        listPhones.get(sity)!!.model,
+                        listPhones.get(sity)!!.price,
+                        1,
+                        listPhones.get(sity)!!.sity,
+                        listPhones.get(sity)!!.renovated
+                    )
                 )
-            )
+            } else {
+                listPurchasedPhones.get(sity)?.quality = listPurchasedPhones.get(sity)?.quality!! + 1
+            }
         }
     }
 
