@@ -5,42 +5,39 @@ import org.example.enums.PhoneModel
 import org.example.enums.Sitys
 
 class ShopImpl(): Shop {
-    override var listPurchasedPhones: MutableMap<Sitys, Phone> = mutableMapOf()
-    override var listPhones: MutableMap<Sitys, Phone> = mutableMapOf()
+    override var listPurchasedPhones: MutableList<Phone> = mutableListOf()
+    override var listPhones: MutableList<Phone> = mutableListOf()
 
     override fun buyingPhone(model: PhoneModel, sity: Sitys) {
-        if (listPhones.get(sity)?.model == model &&
-            listPhones.get(sity)?.quality!! > 0) {
-            // если в городе есть такая модель то уменьшаем количество
-            listPhones.get(sity)?.quality = listPhones.get(sity)?.quality!! - 1
+        val phoneInStock = listPhones.find { it.model == model && it.sity == sity && it.quality > 0 }
 
-            //пополняем список проданных телефонов
-            if (!listPurchasedPhones.contains(sity)) {
-                listPurchasedPhones.set(
-                    sity,
-                    listPhones.get(sity)!!.copy(quality = 1)
-                )
-                println(listPurchasedPhones.get(sity)?.sity)
+        if (phoneInStock != null) {
+            // Уменьшаем количество на складе
+            phoneInStock.quality -= 1
+
+            // Проверяем, есть ли такая модель в списке проданных
+            val purchasedPhone = listPurchasedPhones.find { it.model == model && it.sity == sity }
+
+            if (purchasedPhone == null) {
+                // Если такой модели еще нет, добавляем её
+                listPurchasedPhones.add(phoneInStock.copy(quality = 1))
             } else {
-                val purchasedPhone = listPurchasedPhones[sity]
-                if (purchasedPhone != null) {
-                    purchasedPhone.quality += 1
-                }
-
+                // Если модель уже есть, увеличиваем количество
+                purchasedPhone.quality += 1
             }
         }
     }
 
-
     override fun getPurchasedPhones() {
-        for ((sity, phone) in listPurchasedPhones) {
-            println("город: $sity | модель: $phone")
+        for (phone in listPurchasedPhones) {
+            println("Город: ${phone.sity} | Модель: ${phone.model} | Продано: ${phone.quality}")
         }
+
         val statistics = mutableMapOf<PhoneModel, MutableMap<Sitys, Int>>()
 
-        for ((city, phone) in listPurchasedPhones) {
+        for (phone in listPurchasedPhones) {
             statistics.getOrPut(phone.model) { mutableMapOf() }
-                .merge(city, phone.quality, Int::plus)
+                .merge(phone.sity, phone.quality, Int::plus)
         }
 
         for ((model, cityStats) in statistics) {
@@ -52,22 +49,22 @@ class ShopImpl(): Shop {
     }
 
     fun replenishmentWarehouse() {
-        listPhones.set(Sitys.MOSKOV, Phone(PhoneModel.POCO, "20_000", 50, Sitys.MOSKOV, false))
-        listPhones.set(Sitys.MOSKOV, Phone(PhoneModel.REDMI, "20_000", 50, Sitys.MOSKOV, false))
-        listPhones.set(Sitys.MOSKOV, Phone(PhoneModel.HUAWEI, "40_000", 50, Sitys.MOSKOV, false))
-        listPhones.set(Sitys.MOSKOV, Phone(PhoneModel.IPHONE, "60_000", 50, Sitys.MOSKOV, false))
-        listPhones.set(Sitys.MOSKOV, Phone(PhoneModel.SAMSUNG, "60_000", 50, Sitys.MOSKOV, false))
+        listPhones.add(Phone(PhoneModel.POCO, "20_000", 50, Sitys.MOSKOV, false))
+        listPhones.add(Phone(PhoneModel.REDMI, "20_000", 50, Sitys.MOSKOV, false))
+        listPhones.add(Phone(PhoneModel.HUAWEI, "40_000", 50, Sitys.MOSKOV, false))
+        listPhones.add(Phone(PhoneModel.IPHONE, "60_000", 50, Sitys.MOSKOV, false))
+        listPhones.add(Phone(PhoneModel.SAMSUNG, "60_000", 50, Sitys.MOSKOV, false))
 
-        listPhones.set(Sitys.ROSTOV_NA_DONU, Phone(PhoneModel.POCO, "23_000", 50, Sitys.ROSTOV_NA_DONU, false))
-        listPhones.set(Sitys.ROSTOV_NA_DONU, Phone(PhoneModel.REDMI, "23_000", 50, Sitys.ROSTOV_NA_DONU, false))
-        listPhones.set(Sitys.ROSTOV_NA_DONU, Phone(PhoneModel.HUAWEI, "45_000", 50, Sitys.ROSTOV_NA_DONU, false))
-        listPhones.set(Sitys.ROSTOV_NA_DONU, Phone(PhoneModel.IPHONE, "63_000", 50, Sitys.ROSTOV_NA_DONU, false))
-        listPhones.set(Sitys.ROSTOV_NA_DONU, Phone(PhoneModel.SAMSUNG, "63_000", 50, Sitys.ROSTOV_NA_DONU, false))
+        listPhones.add(Phone(PhoneModel.POCO, "23_000", 50, Sitys.ROSTOV_NA_DONU, false))
+        listPhones.add(Phone(PhoneModel.REDMI, "23_000", 50, Sitys.ROSTOV_NA_DONU, false))
+        listPhones.add(Phone(PhoneModel.HUAWEI, "45_000", 50, Sitys.ROSTOV_NA_DONU, false))
+        listPhones.add(Phone(PhoneModel.IPHONE, "63_000", 50, Sitys.ROSTOV_NA_DONU, false))
+        listPhones.add(Phone(PhoneModel.SAMSUNG, "63_000", 50, Sitys.ROSTOV_NA_DONU, false))
 
-        listPhones.set(Sitys.SANKT_PITERBURG, Phone(PhoneModel.POCO, "18_000", 50, Sitys.SANKT_PITERBURG, false))
-        listPhones.set(Sitys.SANKT_PITERBURG, Phone(PhoneModel.REDMI, "18_000", 50, Sitys.SANKT_PITERBURG, false))
-        listPhones.set(Sitys.SANKT_PITERBURG, Phone(PhoneModel.HUAWEI, "36_000", 50, Sitys.SANKT_PITERBURG, false))
-        listPhones.set(Sitys.SANKT_PITERBURG, Phone(PhoneModel.IPHONE, "58_000", 50, Sitys.SANKT_PITERBURG, false))
-        listPhones.set(Sitys.SANKT_PITERBURG, Phone(PhoneModel.SAMSUNG, "58_000", 50, Sitys.SANKT_PITERBURG, false))
+        listPhones.add(Phone(PhoneModel.POCO, "18_000", 50, Sitys.SANKT_PITERBURG, false))
+        listPhones.add(Phone(PhoneModel.REDMI, "18_000", 50, Sitys.SANKT_PITERBURG, false))
+        listPhones.add(Phone(PhoneModel.HUAWEI, "36_000", 50, Sitys.SANKT_PITERBURG, false))
+        listPhones.add(Phone(PhoneModel.IPHONE, "58_000", 50, Sitys.SANKT_PITERBURG, false))
+        listPhones.add(Phone(PhoneModel.SAMSUNG, "58_000", 50, Sitys.SANKT_PITERBURG, false))
     }
 }

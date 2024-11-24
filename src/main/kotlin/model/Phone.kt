@@ -9,5 +9,4 @@ data class Phone(
     var quality: Int,
     var sity: Sitys,
     var renovated: Boolean
-) {
-}
+) {}
